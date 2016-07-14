@@ -16,23 +16,7 @@ app.use(logger('dev'))
 
 //routes
 
-// /: to show a homepage.
-app.get('/', function(req,res){
-  res.send('route /')
-}) //end /
-
-// /tasks: to create a task or list tasks (depending on the HTTP verb used [see wiki link]).
-
-app.get('/tasks', function(req,res){
-  res.send('get /tasks')
-}) //end /
-
-app.post('/tasks', function(req,res){
-  res.send('post /tasks')
-}) //end /
-
 // /tasks/:id: to view/edit/delete ONE task.
-
 app.get('/tasks/:id', function(req,res){
   res.send(' view ' + req.params.id)
 }) //end /
@@ -45,15 +29,26 @@ app.delete('/tasks/:id', function(req,res){
   res.send(' delete ' + req.params.id)
 }) //end /
 
+///////////////////////////////////////////////////////
 
-// /tasks/:id/edit: to view the 'edit task' form.
+// /tasks: to create a task or list tasks (depending on the HTTP verb used [see wiki link]).
 
-app.get('/tasks/:id/edit', function(req,res){
-  res.send(' edit ' + req.params.id)
+app.get('/tasks', function(req,res){
+  res.send('get /tasks')
 }) //end /
 
+app.post('/tasks', function(req,res){
+  res.send('post /tasks')
+}) //end /
 
+///////////////////////////////////////////////////////
 
+// /: to show a homepage.
+app.get('/', function(req,res){
+  res.send('route /')
+}) //end /
+
+///////////////////////////////////////////////////////
 
 //start the server
 app.listen(PORT, function(){
