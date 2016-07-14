@@ -1,45 +1,25 @@
 'use strict'
 
-const express = require('express')
-const path    = require('path')
-const logger  = require('morgan')
+const express        = require('express')
+const path           = require('path')
+const logger         = require('morgan')
+const bodyParser     = require('body-parser')
+const app            = express()
+const PORT           = process.env.PORT || process.argv[2] || 3009
 
-const app     = express()
-const PORT    = process.env.PORT || process.argv[2] || 3009
+const taskController = require('./routes/tasks')
 
 //setting up directories
 
 
 //setting up morgan and json parser middleware
 app.use(logger('dev'))
+app.use( bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 
 //routes
-
-// /tasks/:id: to view/edit/delete ONE task.
-app.get('/tasks/:id', function(req,res){
-  res.send(' view ' + req.params.id)
-}) //end /
-
-app.put('/tasks/:id', function(req,res){
-  res.send('put ' + req.params.id)
-}) //end /
-
-app.delete('/tasks/:id', function(req,res){
-  res.send(' delete ' + req.params.id)
-}) //end /
-
-///////////////////////////////////////////////////////
-
-// /tasks: to create a task or list tasks (depending on the HTTP verb used [see wiki link]).
-
-app.get('/tasks', function(req,res){
-  res.send('get /tasks')
-}) //end /
-
-app.post('/tasks', function(req,res){
-  res.send('post /tasks')
-}) //end /
+app.use('/tasks', taskController)
 
 ///////////////////////////////////////////////////////
 
