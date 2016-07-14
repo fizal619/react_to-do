@@ -1,4 +1,6 @@
 'use strict'
+const {getTasks, addTask, updateTask, deleteTask} = require('../models/task')
+
 
 //temp storage
 let tasks = ['bro']
@@ -7,16 +9,12 @@ let tasks = ['bro']
 const router = require('express').Router()
 
 // /:id: to view/edit/delete ONE task.
-router.get('/:id', function(req,res){
-  res.send(tasks[req.params.id])
-}) //end /
-
-router.put('/:id', function(req,res){
+router.put('/:id', updateTask, function(req,res){
   task[req.params.id] = req.body.line
   res.send('put ' + req.params.id)
 }) //end /
 
-router.delete('/:id', function(req,res){
+router.delete('/:id',deleteTask , function(req,res){
   tasks.splice(req.params.id,1)
   res.send(' delete ' + req.params.id)
 }) //end /
@@ -25,12 +23,11 @@ router.delete('/:id', function(req,res){
 
 // /tasks: to create a task or list tasks (depending on the HTTP verb used [see wiki link]).
 
-router.get('/', function(req,res){
-  console.log(tasks)
-  res.json(tasks)
+router.get('/', getTasks, function(req,res){
+  res.json(res.rows)
 }) //end /
 
-router.post('/', function(req,res){
+router.post('/', addTask, function(req,res){
   tasks.push(req.body.line)
   res.send('done')
 }) //end /
