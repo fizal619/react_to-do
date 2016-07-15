@@ -15,9 +15,10 @@ const taskController = require('./routes/tasks')
 
 
 //setting up morgan and json parser middleware
-app.use(logger('dev'))
+app.use(logger(DEV? 'dev' : 'common'))
 app.use( bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname,'dist')));
 
 
 //routes
@@ -25,10 +26,6 @@ app.use('/tasks', taskController)
 
 ///////////////////////////////////////////////////////
 
-// /: to show a homepage.
-app.get('/', function(req,res){
-  res.send('route /')
-}) //end /
 
 ///////////////////////////////////////////////////////
 
