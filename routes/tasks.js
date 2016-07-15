@@ -10,7 +10,6 @@ const router = require('express').Router()
 
 // /:id: to view/edit/delete ONE task.
 router.put('/:id', updateTask, function(req,res){
-  task[req.params.id] = req.body.line
   res.send('put ' + req.params.id)
 }) //end /
 
@@ -28,7 +27,6 @@ router.get('/', getTasks, function(req,res){
 }) //end /
 
 router.post('/', addTask, function(req,res){
-  tasks.push(req.body.line)
   res.send('done')
 }) //end /
 

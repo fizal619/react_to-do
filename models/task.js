@@ -44,9 +44,9 @@ module.exports = {
     req.body.tID = Number.parseInt(req.params.id)
     req.body.completed = !!req.body.completed
     _db.any(`update tasks set task_name=$/name/,task_desc=$/desc/,completed=$/completed/ where task_id=$/tID/ returning *;`, req.body)
-    .then(task=>{
+    .then(data=>{
       console.log('add')
-      res.rows = task
+      res.rows = data
       next()
     })
     .catch(error=>{
@@ -56,9 +56,9 @@ module.exports = {
 
   deleteTask(req,res,next){
     req.body.tID = Number.parseInt(req.params.id)
-    _db.any(`delete from taks where task_id=$/tID/  returning *;`, req.body)
+    _db.any(`delete from tasks where task_id=$/tID/  returning *;`, req.body)
     .then(task=>{
-      console.log('add')
+      console.log('=========DELETE=========')
       res.rows = task
       next()
     })
