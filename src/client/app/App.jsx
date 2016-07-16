@@ -5,6 +5,8 @@ import React            from 'react';
 import ReactDOM         from 'react-dom'
 import Nav              from './Nav.jsx'
 import Footer           from './Footer.jsx'
+import TaskForm         from './TaskForm.jsx'
+import TaskList         from './TaskList.jsx'
 
 // create a React Component called _App_
 export default class App extends React.Component{
@@ -20,6 +22,16 @@ export default class App extends React.Component{
         this.state = {
           tasks : {}
         }
+
+    }
+    //add a task
+    addTask(newTask){
+      let name = newTask.target.name.value
+      let desc = newTask.target.desc.value
+      let id = Date.now()
+
+      this.state.tasks[id] = {taskid: id, name: name, desc: desc, completed:false }
+      this.setState({tasks: this.state.tasks})
     }
     // note that classes do **not** have commas between their methods
 
@@ -30,10 +42,12 @@ export default class App extends React.Component{
             <container>
                 <header>
                     <Nav />
-                    <p>Hello world example fizal was here</p>
                 </header>
                 <div className="container">
+                    <TaskForm addTask={this.addTask.bind(this)} />
                     <div className="row">
+                    <TaskList />
+                    <TaskList />
                     {/*everything goes in here*/}
                     </div>
                 </div>
